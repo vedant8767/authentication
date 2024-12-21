@@ -16,6 +16,7 @@ app.use(express.json({limit:"16kb"}))
 app.use(express.urlencoded({extended:true,limit:"16kb"}))
 app.use(express.static("public"))
 
+//if sucessfull connection then only listen no port
 connectDB()
 .then(
     ()=>{
@@ -69,18 +70,3 @@ app.post('/admin', async (req, res) => {
     }
   });
   
-
-// app.post('/api/register', async (req, res) => {
-//     const { username, password } = req.body;
-//     try {
-//       await User.create({ username, password });
-//       res.status(201).json({ message: 'User registered successfully' });
-//     } catch (error) {
-//       res.status(500).json({ error: 'Error registering user' });
-//     }
-//   });
-
-// app.get('/api/users', async (req, res) => {
-//     const users = await User.find({});
-//     res.status(200).json(users);
-//   });

@@ -113,6 +113,10 @@ h1{
     color: #4CAF50;
     margin-bottom: 10px;
 }
+#adminMessage{
+    font-size: 5vh;
+    font-weight: bold;
+}
 @media (max-width: 768px) {
     h1 {
         font-size: 4.5vh;
@@ -148,5 +152,8 @@ h1{
 
     caption {
         font-size: 20px;
+    }
+    #adminMessage{
+        font-size: 3vh;
     }
 }
