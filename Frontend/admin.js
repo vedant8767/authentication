@@ -29,6 +29,8 @@ document.getElementById('adminLoginForm').addEventListener('submit', async (e) =
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>win</th>
+            <th>Attempts</th>
           </tr>
         </thead>
         <tbody>
@@ -46,6 +48,8 @@ document.getElementById('adminLoginForm').addEventListener('submit', async (e) =
         <td>${user.name}</td>
         <td>${user.email}</td>
         <td>${phone}</td>
+        <td>${user.win}</td>
+        <td>${user.attempts}</td>
       `;
       tableBody.appendChild(row);
     });
