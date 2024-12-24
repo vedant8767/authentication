@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="labelCodeForm" class="container hidden">
+        <h2>Enter Label Code</h2>
+        <form onsubmit="handleLabelCode(event)">
+          <div class="form-group">
+            <label>Label Code</label>
+            <input type="text" id="labelCode" required>
+          </div>
+          <button type="submit">Submit Code</button>
+          <p id="message"></p>
+        </form>
+    </div>
+
+    <script>
+        let attempts = 0;
+        const maxAttempts = 3;
+
+        async function handleLabelCode(event) {
+            event.preventDefault();
+
+            const labelCode = document.getElementById('labelCode').value.trim();
+            const message = document.getElementById('message');
+
+            if (attempts >= maxAttempts) {
+                message.textContent = 'Maximum attempts reached! You cannot try again.';
+                return;
+            }
+
+            attempts++;
+
+            const userEmail = localStorage.getItem('userEmail'); // Get email from localStorage
+
+            if (!userEmail) {
+                message.textContent = 'User not logged in!';
+                return;
+            }
+
+            const response = await fetch('http://localhost:8000/validate-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: userEmail, labelCode }), // Send email as userId
+            });
+
+            const result = await response.json();
+            message.textContent = result.message;
+
+            if (result.message.includes('Congratulations')) {
+                document.getElementById('labelCodeForm').classList.add('hidden');
+            } else if (attempts >= maxAttempts) {
+                message.textContent = 'Maximum attempts reached! You cannot try again.';
+            }
+        }
+    </script>
+</body>
+</html>

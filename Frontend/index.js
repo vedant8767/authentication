@@ -5,6 +5,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('pass').value.trim();
     const message = document.getElementById('message');
   
     // Basic Validations
@@ -21,12 +22,18 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const response = await fetch('http://localhost:8000/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, phone, email }),
+      body: JSON.stringify({ name, phone, email,password }),
     });
   
     const result = await response.json();
     message.textContent = result.message;
-    if (result) {
+    if (response.ok) {
+      // Clear the form
       document.getElementById('registerForm').reset();
+  
+      // Redirect to labelcode.html
+      localStorage.setItem('userEmail', email);
+      window.location.href = 'label_code.html';
     }
+   
   });
